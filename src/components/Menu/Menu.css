@@ -1,0 +1,146 @@
+.menu {
+  position: fixed;
+  transition: linear 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.menu_opened {
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu__container {
+  margin: 0;
+  padding: 0;
+  width: 520px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #202020;
+}
+
+.menu__info {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 159px;
+  align-items: center;
+}
+
+.menu__link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+  color: #fff;
+}
+
+.menu__link:hover {
+  opacity: 0.7;
+}
+
+.menu__link:active {
+  text-decoration: underline 1px solid #fff;
+}
+
+.menu__account {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin-bottom: 92px;
+}
+
+.menu__accounttext {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.menu__accounttext:hover {
+  opacity: 0.7;
+}
+
+.menu__accounttext:active {
+  text-decoration: underline 1px solid #fff;
+}
+
+.menu__accountlogo {
+  margin: 0;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  padding: 9px 9px 9px;
+  background-color: #313131;
+}
+
+.menu__btn-close {
+  position: absolute;
+  background-image: url('../../images/menuclose.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 22px;
+  right: 22px;
+  width: 31px;
+  height: 31px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.menu__btn-close:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 525px) {
+  .menu__container {
+    width: 320px;
+  }
+
+  .menu__info {
+    gap: 24px;
+    margin-top: 144px;
+  }
+
+  .menu__link:active {
+    padding-bottom: 7px;
+  }
+
+  .menu__account {
+    margin-bottom: 48px;
+  }
+
+  .menu__accounttext:active {
+    padding-bottom: 7px;
+  }
+
+  .menu__btn-close {
+    top: 13px;
+    right: 13px;
+  }
+}

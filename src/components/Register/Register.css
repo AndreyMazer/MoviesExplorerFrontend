@@ -1,0 +1,186 @@
+.authorization {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 70px 0;
+  background-color: #202020;
+  
+}
+
+.authorization__container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.authorization__logolink {
+  margin: 0;
+  padding: 0;
+}
+
+.authorization__logo {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+.authorization__title {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 40px;
+}
+
+.authorization__form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 16px;
+  min-width: 396px;
+}
+
+.authorization__label {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.authorization__text {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
+  color: #8b8b8b;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.authorization__input {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #424242;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.authorization__button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  border-radius: 3px;
+  background: #4285f4;
+  height: 45px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.authorization__button-register {
+  margin-top: 128px;
+}
+
+.authorization__button-login {
+  margin-top: 197px;
+}
+
+.authorization__button:hover {
+  opacity: 0.8;
+}
+
+.authorization__sign {
+  display: flex;
+  align-self: center;
+  gap: 6px;
+}
+
+.authorization__login {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.authorization__question {
+  margin: 0;
+  padding: 0;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.authorization__link {
+  margin: 0;
+  padding: 0;
+  color: #4285f4;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .authorization {
+    margin: 56px auto 30px;
+  }
+
+  .authorization__container {
+    align-items: center;
+  }
+
+  .authorization__logo {
+    align-self: center;
+    margin-bottom: 50px;
+  }
+
+  .authorization__title {
+    align-self: center;
+    margin-bottom: 80px;
+  }
+
+  .authorization__form {
+    margin-bottom: 14px;
+    min-width: 260px;
+  }
+
+  .authorization__button-register {
+    margin-top: 216px;
+  }
+
+  .authorization__button-login {
+    margin-top: 285px;
+  }
+
+  .authorization__sign {
+    gap: 7px;
+  }
+
+  .authorization__question {
+    font-size: 12px;
+  }
+
+  .authorization__link {
+    font-size: 12px;
+  }
+}
