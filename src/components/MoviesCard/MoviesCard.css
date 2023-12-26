@@ -64,10 +64,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .element {
-    width: 300px;
-  }
-
   .element__text {
     font-size: 12px;
   }

@@ -7,11 +7,11 @@
 .aboutme__header {
   margin: 0;
   padding: 0;
+  padding-bottom: 23px;
+  margin-bottom: 66px;
   font-size: 22px;
   font-weight: 400;
   line-height: normal;
-  padding-bottom: 23px;
-  margin-bottom: 66px;
   border-bottom: 1px solid #dadada;
   color: #ffffff;
   letter-spacing: -0.88px;
@@ -83,8 +83,6 @@
 .aboutme__avatar {
   margin: 0;
   padding: 0;
-  width: 270px;
-  height: 327px;
   min-width: 270px;
   min-height: 327px;
   border-radius: 10px;
@@ -93,7 +91,7 @@
 @media screen and (max-width: 860px) {
   .aboutme {
     margin: 0 auto;
-    padding: 90px 70px 90px;
+    padding: 90px 50px 90px;
     background-color: #202020;
   }
 

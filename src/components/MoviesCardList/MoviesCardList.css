@@ -35,15 +35,13 @@
 
 @media screen and (max-width: 860px) {
   .elements {
-    padding: 40px 30px 80px;
+    padding: 70px 30px 80px;
     gap: 80px;
   }
 
   .elements__list {
-    margin: 0;
-    grid-template-columns: repeat(auto-fit, 1fr);
     column-gap: 30px;
-    row-gap: 19px;
+    row-gap: 35px;
   }
 
   .elements__btn {
