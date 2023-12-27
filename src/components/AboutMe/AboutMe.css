@@ -1,6 +1,6 @@
 .aboutme {
   margin: 0 auto;
-  padding: 110px 70px 100px;
+  padding: 123px 70px 100px;
   background-color: #202020;
 }
 
@@ -29,7 +29,7 @@
 .aboutme__info {
   margin: 0;
   padding: 0;
-  min-width: 600px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -42,6 +42,7 @@
   line-height: 58px;
   margin-bottom: 18px;
   color: #ffffff;
+  letter-spacing: -2.1px;
 }
 
 .aboutme__subtitle {
@@ -83,8 +84,8 @@
 .aboutme__avatar {
   margin: 0;
   padding: 0;
-  min-width: 270px;
-  min-height: 327px;
+  width: 270px;
+  height: 327px;
   border-radius: 10px;
 }
 
@@ -97,12 +98,14 @@
 
   .aboutme__container {
     gap: 49px;
+    grid-template-columns: minmax(0, 600px) 255px;
   }
 
   .aboutme__title {
     margin-bottom: 16px;
     font-size: 40px;
     line-height: 40px;
+    letter-spacing: -1.6px;
   }
 
   .aboutme__subtitle {
@@ -112,7 +115,7 @@
   }
 
   .aboutme__bio {
-    width: 364px;
+    max-width: 364px;
     font-size: 12px;
     line-height: 18px;
     margin-bottom: 87px;

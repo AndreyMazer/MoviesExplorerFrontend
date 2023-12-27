@@ -1,14 +1,14 @@
 .page {
-  /* min-width: 320px;*/
-  /* max-width: 1280px;*/
-  margin: 0 auto;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
   font-family: 'Inter', Arial, sans-serif;
-  text-rendering: optimizeLegibility;
+  background-color: var(--dark-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-  box-sizing: border-box;
-  background-color: #202020;
+  text-rendering: optimizeLegibility;
 }
-
