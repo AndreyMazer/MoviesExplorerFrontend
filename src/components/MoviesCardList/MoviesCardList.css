@@ -41,13 +41,10 @@
 
   .elements__list {
     column-gap: 30px;
-    row-gap: 35px;
+    row-gap: 30px;
+    grid-template-columns: 339px 339px;
   }
 
-  .elements__btn {
-    width: 240px;
-    height: 36px;
-  }
 }
 
 @media screen and (max-width: 675px) {
@@ -57,8 +54,13 @@
 
   .elements__list {
     grid-template-columns: repeat(auto-fit, 300px);
-    row-gap: 16px;
+    row-gap: 15px;
     justify-content: center;
     align-items: center;
+  }
+
+  .elements__btn {
+    width: 240px;
+    height: 36px;
   }
 }

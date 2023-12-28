@@ -1,8 +1,6 @@
 .authorization {
   padding-top: 70px;
-  margin: 0 auto;
-  width: 396px;
-  
+  margin: 0 auto;  
 }
 
 .authorization__container {
@@ -136,7 +134,7 @@
 
 @media screen and (max-width: 500px) {
   .authorization {
-    margin: 56px auto 30px;
+    margin: 55px auto 30px;
   }
 
   .authorization__container {
@@ -145,12 +143,13 @@
 
   .authorization__logo {
     align-self: center;
-    margin-bottom: 50px;
+    margin-top: 35px;
+    margin-bottom: 15px;
   }
 
   .authorization__title {
     align-self: center;
-    margin-bottom: 80px;
+    margin-bottom: 70px;
   }
 
   .authorization__form {
@@ -159,7 +158,7 @@
   }
 
   .authorization__button-register {
-    margin-top: 216px;
+    margin-top: 165px;
   }
 
   .authorization__button-login {

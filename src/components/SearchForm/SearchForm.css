@@ -16,7 +16,7 @@
     justify-content: space-between;
     width: 100%;
     margin-bottom: 30px;
-    padding-bottom: 15px;
+    padding-bottom: 13px;
     box-sizing: border-box;
     border-bottom: 1.5px solid #424242;
 }
@@ -114,7 +114,7 @@
   .search-form {
     padding-top: 80px;
     padding-left: 30px;
-    padding-right: 30px;
+    padding-right: 12px;
   }
 
   .search-form__container {
@@ -133,12 +133,12 @@
   }
 
   .search-form__container {
-    padding-bottom: 64px;
+    padding-bottom: 68px;
   }
 
   .search-form__scan {
-    margin-bottom: 30px;
-    min-height: 56px;
+    margin-top: 10px;
+    margin-bottom: 35px;
   }
 
   .search-form__input {
@@ -147,7 +147,6 @@
   }
 
   .search-form__button {
-    padding: 13px 19px;
     margin-right: 6px;
   }
 
