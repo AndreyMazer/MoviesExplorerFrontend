@@ -1,6 +1,6 @@
 .authorization {
   padding-top: 70px;
-  margin: 0 auto;  
+  margin: 0 auto;
 }
 
 .authorization__container {
@@ -8,7 +8,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-
 }
 
 .authorization__logolink {
@@ -58,13 +57,37 @@
   color: #fff;
 }
 
+.authorization__text-error {
+  visibility: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  text-align: start;
+  position: absolute;
+  color: #ff3055;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.authorization__text-error_active {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  transform: translateY(101%);
+}
+
 .authorization__input {
   background-color: transparent;
   border: none;
   border-radius: 8px;
   padding: 15px;
-  background-color: #2F2F2F;
-  color: #FFF;
+  background-color: #2f2f2f;
+  color: #fff;
   font-size: 13px;
   font-weight: 400;
   line-height: normal;
@@ -80,11 +103,26 @@
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
-  background-color: #4285F4;
+  background-color: #4285f4;
   cursor: pointer;
-  transition: background-color .3s linear;
+  transition: background-color 0.3s linear;
   height: 45px;
   color: #fff;
+}
+
+.authorization__button-error {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  position: absolute;
+  align-self: center;
+  color: #ff004c;
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transform: translateY(-54px);
 }
 
 .authorization__button-register {
@@ -93,6 +131,13 @@
 
 .authorization__button-login {
   margin-top: 170px;
+}
+
+.authorization__button_unworked {
+  background: #f8f8f8;
+  color: #c2c2c2;
+  cursor: pointer;
+  pointer-events: none;
 }
 
 .authorization__button:hover {
