@@ -19,7 +19,6 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
 
     React.useEffect(() => {
         getOnSearchMovies();
-        //onSetSearchShortMovies();
         setShortMovies(onSearchShortMovies(allMovies));
     }, [isSearchText, isActiveCheckbox])
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import okPic from "../../images/galka.svg";
 import errorPic from "../../images/neverno.svg";

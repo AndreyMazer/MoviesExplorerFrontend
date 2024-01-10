@@ -71,7 +71,7 @@ function App() {
     handleGetMovies();
   }, []);
 
-  function hadleRegister(name, email, password) {
+  function handleRegister(name, email, password) {
     register(name, email, password)
       .then((res) => {
         setInfoTooltipOpen(true);
@@ -221,7 +221,7 @@ function App() {
               <Footer />
             </>
           } />
-          {!loggedIn ? (<Route path="/signup" element={<Register onRegister={hadleRegister} errorMessage={errorMessage} />} />) : (<Route path="/signup" element={<Navigate to="/" />} />)}
+          {!loggedIn ? (<Route path="/signup" element={<Register onRegister={handleRegister} errorMessage={errorMessage} />} />) : (<Route path="/signup" element={<Navigate to="/" />} />)}
           {!loggedIn ? (<Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />) : (<Route path="/signin" element={<Navigate to="/" />} />)}
 
           <Route path="/movies" element={

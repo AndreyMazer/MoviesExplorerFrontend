@@ -5,9 +5,6 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register({ onRegister, errorMessage }) {
     const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
-    /*React.useEffect(() => {
-        resetForm()
-    }, [resetForm]);*/
 
     function handleSubmit(evt) {
         evt.preventDefault();
