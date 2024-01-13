@@ -1,13 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import data from '../../utils/constants';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
+function Profile({ onSignOut, onProfile, errorMessage }) {
+    const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
+    const [isOpenButton, setIsOpenButton] = React.useState(false);
+    const currentUser = React.useContext(CurrentUserContext)
+    const { email, name } = values;
+
+    React.useEffect(() => {
+        resetForm({ email: currentUser.email, name: currentUser.name })
+    }, [currentUser.email, currentUser.name, resetForm]);
+
+    React.useEffect(() => {
+        let meanings = (currentUser.email !== values.email) || (currentUser.name !== values.name)
+        setIsOpenButton(meanings);
+
+    }, [currentUser.email, currentUser.name, values.email, values.name]);
+
+    function handleProfileSubmit(evt) {
+        evt.preventDefault();
+        onProfile({ email, name });
+    }
 
     return (
         <main className="profile">
             <section className="profile__container">
-                <h2 className="profile__title">Привет, {data.name}!</h2>
+                <h2 className="profile__title">Привет, {currentUser.name}!</h2>
                 <form className="profile__form" onSubmit={handleProfileSubmit} noValidate>
                     <div className="profile__label">
                         <p className="profile__text">Имя</p>
