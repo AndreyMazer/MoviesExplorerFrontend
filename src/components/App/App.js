@@ -22,7 +22,7 @@ import { moviesApiArray } from '../../utils/MoviesApiArray';
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const navigate = useNavigate();
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
