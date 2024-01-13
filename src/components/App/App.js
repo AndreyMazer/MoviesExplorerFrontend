@@ -59,7 +59,7 @@ function App() {
     if (token) {
       checkToken(token)
         .then((res) => {
-          mainApi.setToken(token);
+          Api.setToken(token);
           setCurrentUser({ name: res.name, email: res.email, _id: res._id });
           setLoggedIn(true);
         })
@@ -173,7 +173,7 @@ function App() {
   }
 
   function handleDeleteMovie(movieId) {
-    mainApi.deleteMovie(movieId)
+    Api.deleteMovie(movieId)
       .then(() => {
         setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId))
       })
