@@ -59,7 +59,7 @@ function App() {
     if (token) {
       checkToken(token)
         .then((res) => {
-          Api.setToken(token);
+          api.setToken(token);
           setCurrentUser({ name: res.name, email: res.email, _id: res._id });
           setLoggedIn(true);
         })
@@ -99,7 +99,7 @@ function App() {
       .then((res) => {
         if (res) {
           localStorage.setItem('token', res.token);
-          Api.setToken(res.token);
+          api.setToken(res.token);
           setLoggedIn(true);
           setCurrentUser({ name: res.name, email: res.email });
           localStorage.setItem('loggedIn', true);
@@ -123,7 +123,7 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    Api.editUser(data)
+    api.editUser(data)
       .then((newUser) => {
         setCurrentUser(newUser);
         if (newUser) {
@@ -163,7 +163,7 @@ function App() {
   }
 
   function handleSaveMovie(data) {
-    Api.addMovies(data)
+    api.addMovies(data)
       .then((savedMovie) => {
         setSavedMovies([savedMovie, ...savedMovies])
       })
@@ -173,7 +173,7 @@ function App() {
   }
 
   function handleDeleteMovie(movieId) {
-    Api.deleteMovie(movieId)
+    api.deleteMovie(movieId)
       .then(() => {
         setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId))
       })
