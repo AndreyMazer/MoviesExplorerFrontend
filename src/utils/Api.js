@@ -76,7 +76,7 @@ class Api {
 
 }
 
-const Api = new Api({
+const api = new Api({
     url: 'https://api.andreymazer.movies.nomoredomainsmonster.ru',
     headers: {
         authorization: '',
