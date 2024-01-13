@@ -1,8 +1,8 @@
 import React from 'react';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useFormValidation } from '../../hooks/useFormValidation';
 
 function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveCheckbox }) {
-    const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
+    const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
     const { movieTitle } = values;
 
     React.useEffect(() => {
