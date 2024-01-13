@@ -13,7 +13,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Error from '../Error/Error';
 import Menu from '../Menu/Menu';
-import Api from '../../utils/Api';
+import api from '../../utils/Api';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { register, authorize, checkToken } from '../../utils/Authorization';
@@ -45,7 +45,7 @@ function App() {
 
   React.useEffect(() => {
     if (loggedIn) {
-      Promise.all([Api.getUser(), Api.getMovies()])
+      Promise.all([api.getUser(), Api.getMovies()])
         .then(([resUser, resMovie]) => {
           setCurrentUser(resUser);
           setSavedMovies(resMovie);
