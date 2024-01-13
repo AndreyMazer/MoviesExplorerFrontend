@@ -45,7 +45,7 @@ function App() {
 
   React.useEffect(() => {
     if (loggedIn) {
-      Promise.all([Api.getUser(), Api.getMovies()])
+      Promise.all([api.getUser(), api.getMovies()])
         .then(([resUser, resMovie]) => {
           setCurrentUser(resUser);
           setSavedMovies(resMovie);
