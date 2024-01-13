@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import headerLogo from '../../images/logo.svg';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useFormValidation } from '../../hooks/useFormValidation';
 
 function Register({ onRegister, errorMessage }) {
-    const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
+    const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
 
     function handleSubmit(evt) {
         evt.preventDefault();
