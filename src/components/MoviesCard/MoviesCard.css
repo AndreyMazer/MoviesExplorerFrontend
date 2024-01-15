@@ -68,6 +68,7 @@
 
 .element__btn-delete {
   background-image: url(../../images/d8.svg);
+  background-position: center;
 }
 
 @media screen and (max-width: 768px) {
