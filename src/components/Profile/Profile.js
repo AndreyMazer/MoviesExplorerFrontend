@@ -39,11 +39,11 @@ function Profile({ onSignOut, onProfile, errorMessage }) {
                         <input type="email" name="email" value={values.email || ""} onChange={handleChange} pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$" placeholder="Email" className="profile__input profile__input_type_email" id="email-input" required />
                         <span className={`profile__text-error ${errors.email ? "profile__text-error_active" : ""}`}>{errors.email}</span>
                     </div>
-                </form>
-                <div className="profile__button-label">
+                    <div className="profile__button-label">
                         <span className="profile__button-error">{errorMessage}</span>
                         <button type="submit" onSubmit={handleProfileSubmit} className={`profile__change profile__change-saved ${!isValid || !isOpenButton ? "profile__change_disable" : ''}`}>Редактировать</button>
                     </div>
+                </form>              
                 <Link to="/" className="profile__logout" onClick={onSignOut}>
                     <p className="profile__link">Выйти из аккаунта</p>
                 </Link>
