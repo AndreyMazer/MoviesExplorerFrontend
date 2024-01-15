@@ -42,7 +42,7 @@ function Profile({ onSignOut, onProfile, errorMessage }) {
                 </form>
                 <div className="profile__button-label">
                         <span className="profile__button-error">{errorMessage}</span>
-                        (<button type="submit" onSubmit={handleProfileSubmit} className={`profile__change profile__change-saved ${!isValid || !isOpenButton ? "profile__change_disable" : ''}`}>Редактировать</button>)
+                        <button type="submit" onSubmit={handleProfileSubmit} className={`profile__change profile__change-saved ${!isValid || !isOpenButton ? "profile__change_disable" : ''}`}>Редактировать</button>
                     </div>
                 <Link to="/" className="profile__logout" onClick={onSignOut}>
                     <p className="profile__link">Выйти из аккаунта</p>
