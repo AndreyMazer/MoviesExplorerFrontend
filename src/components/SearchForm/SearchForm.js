@@ -21,7 +21,7 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
                 <div className="search-form__scan">
                     <input type="text" name="movieTitle" value={values.movieTitle || ""} onChange={handleChange} placeholder="Фильм" className="search-form__input search-form__input_type_film" id="film-input" required />
                     <span className={`search-form__input-error ${errors.movieTitle ? "search-form__input-error_active" : ""}`}>{errors.movieTitle}</span>
-                    <button disabled={!isValid} type="submit" className={`search-form__button ${!isValid ? "search-form__button_unworked" : ""}`} aria-label="Поиск фильмов">Поиск</button>
+                    <button disabled={!isValid} type="submit" className={`search-form__button ${!isValid ? "search-form__button_unworked" : ""}`} aria-label="Поиск фильмов"></button>
                 </div>
                 <div className="search-form__label-choice">
                     <div className="search-form__choice">
