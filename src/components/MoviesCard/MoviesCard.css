@@ -66,6 +66,10 @@
   background-image: url(../../images/on.svg);
 }
 
+.element__btn-delete {
+  background-image: url(../../images/d8.svg);
+}
+
 @media screen and (max-width: 768px) {
   .element__text {
     font-size: 12px;
