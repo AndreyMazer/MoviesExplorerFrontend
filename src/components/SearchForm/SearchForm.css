@@ -28,6 +28,7 @@
   font-size: 28px;
   font-weight: 500;
   line-height: normal;
+  color: #fff;
 }
 
 .search-form__input:focus {
@@ -79,7 +80,7 @@
 }
 
 .search-form__button_unworked {
-  background: rgb(248, 248, 248);
+  background: #202020;
   color: rgb(194, 194, 194);
   cursor: pointer;
   pointer-events: none;
