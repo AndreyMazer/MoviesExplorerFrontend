@@ -80,8 +80,6 @@
 }
 
 .search-form__button_unworked {
-  background: #202020;
-  color: rgb(194, 194, 194);
   cursor: pointer;
   pointer-events: none;
 }
