@@ -24,11 +24,11 @@
 
 
 ## Ссылки на проект:
-
+pull request https://github.com/AndreyMazer/MoviesExplorerFrontend/compare/main...level-3
 * [GitHub репозиторий](https://github.com/AndreyMazer/MoviesExplorerFrontend.git)
 * [Макет в Figma](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проект?type=design&node-id=1-11614&mode=design&t=0aZjoGXEpbJK3r7G-0)
-* [Pull request](https://github.com/AndreyMazer/MoviesExplorerFrontend/compare/main...level-3)
 * [Ссылка на задеплоенный на сервере проект](https://andreymazer.movies.nomoredomainsrocks.ru)
+* [Pull request]( https://github.com/AndreyMazer/MoviesExplorerFrontend/pull/2)
 
 Макет: dark-5
 
