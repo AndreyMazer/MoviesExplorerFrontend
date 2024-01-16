@@ -7,7 +7,7 @@ function InfoTooltip(props) {
         <div className={`popup popup_type_modal ${props.isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__infotooltip">
                 <img className="popup__regImage" src={props.status ? okPic : errorPic} alt="результат" />
-                <h2 className="popup__feedback">{props.status ? props.succes : "Что-то пошло не так... Повоторите попытку снова"}</h2>
+                <h2 className="popup__feedback">{props.status ? props.succes : "Ничего не найдено"}</h2>
                 <button onClick={props.onClose} type="button" className="popup__close-button" aria-label="Закрыть"></button>
             </div>
         </div>
@@ -15,5 +15,6 @@ function InfoTooltip(props) {
 }
 
 export default InfoTooltip;
+
 
 

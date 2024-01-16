@@ -3,17 +3,21 @@ import { useFormValidation } from '../../hooks/useFormValidation';
 
 function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveCheckbox }) {
     const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
-    const { movieTitle } = values;
 
     React.useEffect(() => {
         resetForm({ movieTitle: isSearchText })
     }, [isSearchText]);
 
-
+    
     function handleSubmit(evt) {
         evt.preventDefault();
-        onSearch(movieTitle);
+        onSearch(values.movieTitle);
     }
+
+    function handleCheckboxChange(evt) {
+        handleChangeCheckbox(evt.target.checked);
+    }
+
 
     return (
         <section className="search-form">
@@ -26,7 +30,7 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
                 <div className="search-form__label-choice">
                     <div className="search-form__choice">
                         <input type="checkbox"
-                            onChange={handleChangeCheckbox}
+                            onChange={handleCheckboxChange}
                             id="switch"
                             className="search-form__input-tumb"
                             checked={isActiveCheckbox}

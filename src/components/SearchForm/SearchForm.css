@@ -4,11 +4,11 @@
 }
 
 .search-form__container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     width: 100%;
     padding-bottom: 45px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .search-form__scan {
@@ -39,12 +39,10 @@
 
 .search-form__input-error {
   visibility: hidden;
-  width: 100%;
   position: absolute;
   margin: 0;
   padding: 0;
-  left: 0;
-  bottom: 0;
+  bottom: 540px;
   text-align: start;
   opacity: 0;
   color: #FF3055;
@@ -150,6 +148,10 @@
 
   .search-form__container {
     padding-bottom: 52px;
+  }
+
+  .search-form__input-error {
+    bottom: 520px;
   }
 
   .search-form__label-choice {
