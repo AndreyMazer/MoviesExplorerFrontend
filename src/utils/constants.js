@@ -1,4 +1,4 @@
-export const DESKTOP_SIZE = 1280;
+export const DESKTOP_SIZE = 861;
 export const MEDIUM_SIZE = 768;
 export const MOBILE_SIZE = 320;
 

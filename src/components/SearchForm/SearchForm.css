@@ -57,8 +57,13 @@
   opacity: 1;
   display: block;
   transform: translateY(101%);
+  
 }
-
+.search-form__input-error_notfound {
+  color: #FF3055;
+  position: absolute;
+  margin-left: 70px;
+}
 
 .search-form__button {
   width: 34px;
@@ -146,6 +151,10 @@
     padding-right: 12px;
   }
 
+  .search-form__input-error_notfound {
+    margin-left: 30px;
+  }
+
   .search-form__container {
     padding-bottom: 52px;
   }
@@ -195,4 +204,5 @@
   .search-form__text {
     font-size: 11px;
   }
+  
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
+
 
 function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -9,8 +9,6 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [isActiveCheckbox, setIsActiveCheckbox] = React.useState(false);
     const [shortMovies, setShortMovies] = React.useState([]);
     const [allMovies, setAllMovies] = React.useState([]);
-    const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
-    const [message, setMessage] = React.useState(false);
 
     React.useEffect(() => {
         getOnSearchMovies();
@@ -37,7 +35,6 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         })
     }
 
-
     function restoringPreviousSearch() {
         if (localStorage.getItem('previousText')) {
             setIsSearchText(localStorage.getItem('previousText'));
@@ -57,15 +54,10 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         try {
             if (isSearchText.length > 0) {
                 const moviesData = onSearch(filteredMovies, isSearchText)
-                if (moviesData.length === 0) {
-                    setInfoTooltipOpen(true);
-                    setMessage(false)
-                } else {
-                    setAllMovies(moviesData);
-                    localStorage.setItem('previousText', isSearchText);
-                    localStorage.setItem('previousMovies', JSON.stringify(moviesData));
-                    localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
-                }
+                setAllMovies(moviesData);
+                localStorage.setItem('previousText', isSearchText);
+                localStorage.setItem('previousMovies', JSON.stringify(moviesData));
+                localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
             }
             return;
         } catch (err) {
@@ -76,20 +68,15 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         }
     }
 
-
-    function closeAllPopups() {
-        setInfoTooltipOpen(false);
-    }
-
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
-            <InfoTooltip
-                isOpen={isInfoTooltipOpen}
-                onClose={closeAllPopups}
-                status={message}
-            />
+            {allMovies.length === 0 && (
+                <p className='search-form__input-error_notfound'>Ничего не найдено</p>
+            )}
+            {allMovies.length > 0 && (
+                <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
+            )}
         </main>
     )
 }

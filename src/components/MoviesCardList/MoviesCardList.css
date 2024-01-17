@@ -33,6 +33,15 @@
   opacity: 0.8;
 }
 
+@media (min-width: 900px) and (max-width: 1280px) {
+  .elements__list {
+   
+    grid-template-columns: repeat(4, minmax(100px, 1fr));
+
+  }
+
+}
+
 @media screen and (max-width: 860px) {
   .elements {
     padding: 70px 30px 80px;

@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormValidation } from '../../hooks/useFormValidation';
 
 function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveCheckbox }) {
     const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+    const [searchResult, setSearchResult] = useState(null);
 
     React.useEffect(() => {
         resetForm({ movieTitle: isSearchText })
     }, [isSearchText]);
 
-    
     function handleSubmit(evt) {
         evt.preventDefault();
-        onSearch(values.movieTitle);
+        setIsFormSubmitted(true);
+        if (values.movieTitle) {
+            setSearchResult("Результаты поиска");
+            onSearch(values.movieTitle);
+        } else {
+            setSearchResult("Ничего не найдено");
+        }
     }
 
     function handleCheckboxChange(evt) {
@@ -24,8 +31,8 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
             <form className="search-form__container" onSubmit={handleSubmit} noValidate>
                 <div className="search-form__scan">
                     <input type="text" name="movieTitle" value={values.movieTitle || ""} onChange={handleChange} placeholder="Фильм" className="search-form__input search-form__input_type_film" id="film-input" required />
-                    <span className={`search-form__input-error ${errors.movieTitle ? "search-form__input-error_active" : ""}`}>{errors.movieTitle}</span>
-                    <button disabled={!isValid} type="submit" className={`search-form__button ${!isValid ? "search-form__button_unworked" : ""}`} aria-label="Поиск фильмов"></button>
+                    <span className={`search-form__input-error ${isFormSubmitted && !values.movieTitle ? "search-form__input-error_active" : ""}`}>{isFormSubmitted && !values.movieTitle ? "Нужно ввести ключевое слово" : ""}</span>
+                    <button disabled={!isValid || (isFormSubmitted && errors.movieTitle)} type="submit" className={`search-form__button ${(!isValid || (isFormSubmitted && errors.movieTitle)) ? "search-form__button_unworked" : ""}`} aria-label="Поиск фильмов"></button>
                 </div>
                 <div className="search-form__label-choice">
                     <div className="search-form__choice">
