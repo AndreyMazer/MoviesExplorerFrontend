@@ -1,44 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import Preloader from '../Preloader/Preloader';
 
 function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveCheckbox }) {
   const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  const [searchResult, setSearchResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-
-  useEffect(() => {
-    if (isSearchText) {
-      resetForm({ movieTitle: isSearchText });
-      handleSearch(isSearchText);
-    }
-  }, [isSearchText, resetForm]);
-
-  function handleSearch(query) {
-    setIsLoading(true);
-    onSearch(query, (result) => {
-      if (result) {
-        setSearchResult("Результаты поиска");
-        setHasSearched(true);
-      } else {
-        setSearchResult("Ничего не найдено");
-        setHasSearched(false);
-      }
-      setIsLoading(false);
-    });
-  }
+  const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     setIsFormSubmitted(true);
-    setHasSearched(false);
     if (values.movieTitle) {
-      handleSearch(values.movieTitle);
-    } else {
-      setSearchResult("Нужно ввести ключевое слово");
-      setHasSearched(false);
+      onSearch(values.movieTitle);
     }
   }
 
@@ -84,8 +55,6 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
           <p className="search-form__text">Короткометражки</p>
         </div>
       </form>
-      {searchResult === "Ничего не найдено" && isFormSubmitted && hasSearched && !isLoading && <p >Ничего не найдено</p>}
-      {isLoading && !hasSearched && <Preloader />}
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-
+import Preloader from '../Preloader/Preloader';
 
 function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -9,15 +9,16 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [isActiveCheckbox, setIsActiveCheckbox] = React.useState(false);
     const [shortMovies, setShortMovies] = React.useState([]);
     const [allMovies, setAllMovies] = React.useState([]);
+    const [showNotFound, setShowNotFound] = React.useState(false);
 
     React.useEffect(() => {
         getOnSearchMovies();
         setShortMovies(onSearchShortMovies(allMovies));
-    }, [isSearchText, isActiveCheckbox])
+    }, [isSearchText, isActiveCheckbox]);
 
     React.useEffect(() => {
         restoringPreviousSearch();
-    }, [])
+    }, []);
 
     function handleChangeCheckbox() {
         setIsActiveCheckbox(!isActiveCheckbox);
@@ -32,7 +33,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     function onSearchShortMovies(moviesList) {
         return moviesList.filter((movie) => {
             return movie.duration <= 40;
-        })
+        });
     }
 
     function restoringPreviousSearch() {
@@ -53,32 +54,36 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         setAllMovies([]);
         try {
             if (isSearchText.length > 0) {
-                const moviesData = onSearch(filteredMovies, isSearchText)
+                const moviesData = onSearch(filteredMovies, isSearchText);
                 setAllMovies(moviesData);
+                setShortMovies(onSearchShortMovies(moviesData));
+                setShowNotFound(moviesData.length === 0);
                 localStorage.setItem('previousText', isSearchText);
                 localStorage.setItem('previousMovies', JSON.stringify(moviesData));
                 localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
+            } else {
+                setShowNotFound(false);
             }
-            return;
         } catch (err) {
             console.log(err);
-        }
-        finally {
-            setIsLoading(false);
+        } finally {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
         }
     }
-
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            {allMovies.length === 0 && (
+            {isLoading && !showNotFound && <Preloader />}
+            {showNotFound && !isLoading && (
                 <p className='search-form__input-error_notfound'>Ничего не найдено</p>
             )}
-            {allMovies.length > 0 && (
-                <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
+            {allMovies.length > 0 && !isLoading && (
+                <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
             )}
         </main>
-    )
+    );
 }
 
 export default Movies;
