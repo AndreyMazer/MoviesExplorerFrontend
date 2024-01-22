@@ -10,6 +10,16 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [shortMovies, setShortMovies] = React.useState([]);
     const [allMovies, setAllMovies] = React.useState([]);
     const [showNotFound, setShowNotFound] = React.useState(false);
+    const [isFirstSearch, setIsFirstSearch] = React.useState(true); 
+
+    React.useEffect(() => {
+        if (isFirstSearch) { 
+            getOnSearchMovies();
+            setIsFirstSearch(false); 
+        } else {
+            setShortMovies(onSearchShortMovies(allMovies)); 
+        }
+    }, [isSearchText, isActiveCheckbox]);
 
     React.useEffect(() => {
         getOnSearchMovies();
@@ -50,7 +60,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     }
 
     function getOnSearchMovies() {
-        setIsLoading(true);
+        setIsLoading(true); 
         setAllMovies([]);
         try {
             if (isSearchText.length > 0) {
@@ -68,8 +78,8 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
             console.log(err);
         } finally {
             setTimeout(() => {
-                setIsLoading(false);
-            }, 3000);
+                setIsLoading(false); 
+            }, 1000);
         }
     }
     return (

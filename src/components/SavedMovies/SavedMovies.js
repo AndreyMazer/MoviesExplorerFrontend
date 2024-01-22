@@ -15,7 +15,7 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
 
   useEffect(() => {
     setAllMovies(onSearch(filteredMovies, isSearchText));
-  }, [isSearchText]);
+  }, [isSearchText, filteredMovies]);
 
   function handleChangeCheckbox() {
     setIsActiveCheckbox(!isActiveCheckbox);
@@ -53,7 +53,9 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
 
   function handleDeleteCard(movieId) {
     onDeleteCard(movieId);
-    getOnSearchMovies();
+    if (isSearchText) {
+      setAllMovies(onSearch(filteredMovies, isSearchText)); 
+    }
   }
 
   return (

@@ -21,8 +21,7 @@
   height: 36px;
   border-radius: 5px;
   border: 1px solid #424242;
-  background-color: transparent;
-  font-size: 12px;
+  background-color: transparent; font-size: 12px;
   font-weight: 500;
   line-height: normal;
   color: #fff;
@@ -33,14 +32,6 @@
   opacity: 0.8;
 }
 
-@media (min-width: 900px) and (max-width: 1280px) {
-  .elements__list {
-   
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
-
-  }
-
-}
 
 @media screen and (max-width: 860px) {
   .elements {

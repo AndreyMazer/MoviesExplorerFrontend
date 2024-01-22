@@ -7,11 +7,12 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    setIsFormSubmitted(true);
     if (values.movieTitle) {
       onSearch(values.movieTitle);
     }
+    setIsFormSubmitted(true);
   }
+
 
   function handleCheckboxChange(evt) {
     handleChangeCheckbox(evt.target.checked);
@@ -31,12 +32,12 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
             id="film-input"
             required
           />
-          <span className={`search-form__input-error ${isFormSubmitted && !values.movieTitle ? "search-form__input-error_active" : ""}`}>
-            {isFormSubmitted && !values.movieTitle ? "Нужно ввести ключевое слово" : ""}
+          <span className={`search-form__input-error ${isFormSubmitted && !values.movieTitle && !isValid  ? "search-form__input-error_active" : ""}`}>
+            {isFormSubmitted && !values.movieTitle && !isValid ? "Нужно ввести ключевое слово" : ""}
           </span>
           <button
             type="submit"
-            className={`search-form__button ${!values.movieTitle ? "search-form__button_unworked" : ""}`}
+            className={`search-form__button `}
             aria-label="Поиск фильмов"
           ></button>
         </div>

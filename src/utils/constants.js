@@ -1,5 +1,5 @@
-export const DESKTOP_SIZE = 861;
-export const MEDIUM_SIZE = 667;
+export const DESKTOP_SIZE = 1280;
+export const MEDIUM_SIZE = 1006;
 export const MOBILE_SIZE = 320;
 
 export const MOVIES_COUNT_DESKTOP_SIZE = 16;

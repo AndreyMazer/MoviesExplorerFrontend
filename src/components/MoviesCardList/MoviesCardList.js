@@ -1,7 +1,7 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
-import { DESKTOP_SIZE, MEDIUM_SIZE, MOBILE_SIZE, MOVIES_COUNT_DESKTOP_SIZE, MOVIES_COUNT_MEDIUM_SIZE, MOVIES_COUNT_MOBILE_SIZE, MORE_MOVIES_COUNT_DESKTOP_SIZE, MORE_MOVIES_COUNT_MEDIUM_SIZE, MORE_MOVIES_COUNT_MOBILE_SIZE } from '../../utils/constants';
+import { DESKTOP_SIZE, MEDIUM_SIZE, MOBILE_SIZE, } from '../../utils/constants';
 
 function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -21,16 +21,17 @@ function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCa
       setBiggerMoviesCount(0);
     } else {
       if (windowWidth >= DESKTOP_SIZE) {
-        setMoviesCount(MOVIES_COUNT_DESKTOP_SIZE);
-        setBiggerMoviesCount(MORE_MOVIES_COUNT_DESKTOP_SIZE);
-      }
-      if (windowWidth >= MEDIUM_SIZE && windowWidth < DESKTOP_SIZE) {
-        setMoviesCount(MOVIES_COUNT_MEDIUM_SIZE);
-        setBiggerMoviesCount(MORE_MOVIES_COUNT_MEDIUM_SIZE);
-      }
-      if (windowWidth >= MOBILE_SIZE && windowWidth < MEDIUM_SIZE) {
-        setMoviesCount(MOVIES_COUNT_MOBILE_SIZE);
-        setBiggerMoviesCount(MORE_MOVIES_COUNT_MOBILE_SIZE);
+        setMoviesCount(4 * 4); 
+        setBiggerMoviesCount(4); 
+      } else if (windowWidth >= MEDIUM_SIZE && windowWidth < DESKTOP_SIZE) {
+        setMoviesCount(3 * 3); 
+        setBiggerMoviesCount(3); 
+      } else if (windowWidth >= MOBILE_SIZE && windowWidth < MEDIUM_SIZE) {
+        setMoviesCount(4 * 2); 
+        setBiggerMoviesCount(2); 
+      } else {
+        setMoviesCount(5 * 1); 
+        setBiggerMoviesCount(2); 
       }
     }
   }
