@@ -31,11 +31,14 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
   }
 
   function onSearchShortMovies(moviesList) {
-    return moviesList.filter((movie) => {
-      return movie.duration <= 40;
-    });
+    if (isActiveCheckbox) {
+      return moviesList.filter((movie) => {
+        return movie.duration <= 40;
+      });
+    } else {
+      return moviesList;
+    }
   }
-
   function getOnSearchMovies() {
     if (!isSearchText) {
       return;
@@ -57,6 +60,7 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
       setAllMovies(onSearch(filteredMovies, isSearchText)); 
     }
   }
+
 
   return (
     <main className="movies">

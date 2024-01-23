@@ -1,10 +1,8 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Preloader from '../Preloader/Preloader';
 
 function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
-    const [isLoading, setIsLoading] = React.useState(false);
     const [isSearchText, setIsSearchText] = React.useState('');
     const [isActiveCheckbox, setIsActiveCheckbox] = React.useState(false);
     const [shortMovies, setShortMovies] = React.useState([]);
@@ -60,7 +58,6 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     }
 
     function getOnSearchMovies() {
-        setIsLoading(true); 
         setAllMovies([]);
         try {
             if (isSearchText.length > 0) {
@@ -76,20 +73,15 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
             }
         } catch (err) {
             console.log(err);
-        } finally {
-            setTimeout(() => {
-                setIsLoading(false); 
-            }, 1000);
         }
     }
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            {isLoading && !showNotFound && <Preloader />}
-            {showNotFound && !isLoading && (
+            {showNotFound && (
                 <p className='search-form__input-error_notfound'>Ничего не найдено</p>
             )}
-            {allMovies.length > 0 && !isLoading && (
+            {allMovies.length > 0 && (
                 <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
             )}
         </main>

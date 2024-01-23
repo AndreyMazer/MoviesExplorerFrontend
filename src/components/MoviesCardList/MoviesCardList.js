@@ -24,7 +24,7 @@ function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCa
         setMoviesCount(4 * 4); 
         setBiggerMoviesCount(4); 
       } else if (windowWidth >= MEDIUM_SIZE && windowWidth < DESKTOP_SIZE) {
-        setMoviesCount(3 * 3); 
+        setMoviesCount(4 * 3); 
         setBiggerMoviesCount(3); 
       } else if (windowWidth >= MOBILE_SIZE && windowWidth < MEDIUM_SIZE) {
         setMoviesCount(4 * 2); 
