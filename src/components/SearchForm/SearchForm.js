@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import Preloader from '../Preloader/Preloader';
 
@@ -8,16 +8,12 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
   const [isLoading, setIsLoading] = React.useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    if (isSearchText === false) {
-      resetForm();
-      if (searchQuery) {
-        handleChange({ target: { value: searchQuery, name: 'movieTitle' } });
-      }
-    }
-  }, [isSearchText, resetForm, searchQuery]);
+  React.useEffect(() => { 
+    resetForm({ movieTitle: isSearchText }) 
+}, [isSearchText]); 
 
-  useEffect(() => {
+
+  React.useEffect(() => {
     if (isSearchText === false) {
       resetForm();
     }
@@ -26,35 +22,36 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    setIsFormSubmitted(true);
-    if (values.movieTitle) {
-      setIsLoading(true);
-      if (typeof onSearch === 'function') {
-        const searchResult = onSearch(values.movieTitle);
-        if (searchResult instanceof Promise) {
-          searchResult
-            .then((res) => {
-              setSearchQuery(values.movieTitle);
-            })
-            .catch(err => {
-            })
-            .finally(() => {
-              setTimeout(() => {
-                setIsLoading(false);
-              }, 1000);
-            });
-        } else {
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 1000);
-        }
+    if (!values.movieTitle) {
+      setIsFormSubmitted(true);
+      return;
+    }
+    setIsFormSubmitted(false);
+    setIsLoading(true);
+    if (typeof onSearch === 'function') {
+      const searchResult = onSearch(values.movieTitle);
+      if (searchResult instanceof Promise) {
+        searchResult
+          .then((res) => {
+            setSearchQuery(values.movieTitle);
+            localStorage.setItem('searchQuery', values.movieTitle);
+          })
+          .catch(err => {})
+          .finally(() => {
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 1000);
+          });
       } else {
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
       }
+    } else {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
-    setIsFormSubmitted(true);
   }
 
   function handleCheckboxChange(evt) {
