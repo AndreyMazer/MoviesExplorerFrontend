@@ -80,10 +80,10 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         isSearchText={isSearchText}
         isActiveCheckbox={isActiveCheckbox}
       />
-      {showNotFound && (
+      {showNotFound && isSearchText && (
         <p className='search-form__input-error_notfound'>Ничего не найдено</p>
       )}
-      {allMovies.length > 0 && (
+      {isSearchText && allMovies.length > 0 && (
         <MoviesCardList
           movies={isActiveCheckbox ? shortMovies : allMovies}
           isSavedCard={false}

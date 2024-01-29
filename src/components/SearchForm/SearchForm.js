@@ -7,25 +7,26 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
   const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showError, setShowError] = useState(false);
 
-  React.useEffect(() => { 
-    resetForm({ movieTitle: isSearchText }) 
-}, [isSearchText]); 
-
+  React.useEffect(() => {
+    resetForm({ movieTitle: isSearchText })
+  }, [isSearchText]);
 
   React.useEffect(() => {
     if (isSearchText === false) {
       resetForm();
     }
   }, [isSearchText, resetForm]);
-  
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    setIsFormSubmitted(true);
     if (!values.movieTitle) {
+      setShowError(true);
       return;
     }
-    if (!isLoading) { 
+    if (!isLoading) {
       setIsLoading(true);
       if (typeof onSearch === 'function') {
         const searchResult = onSearch(values.movieTitle);
@@ -34,22 +35,28 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
             .then((res) => {
               setSearchQuery(values.movieTitle);
               localStorage.setItem('searchQuery', values.movieTitle);
+              handleChangeCheckbox(true);
             })
-            .catch(err => {})
+            .catch(err => { })
             .finally(() => {
-              setIsLoading(false); 
+              setIsLoading(false);
             });
         } else {
-          setIsLoading(false); 
+          setIsLoading(false);
         }
       } else {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     }
   }
 
   function handleCheckboxChange(evt) {
     handleChangeCheckbox(evt.target.checked);
+  }
+
+  function handleInputChange(evt) {
+    handleChange(evt);
+    setShowError(false);
   }
 
   return (
@@ -60,15 +67,17 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
             type="text"
             name="movieTitle"
             value={values.movieTitle || ""}
-            onChange={handleChange}
+            onChange={handleInputChange}
             placeholder="Фильм"
             className="search-form__input search-form__input_type_film"
             id="film-input"
             required
           />
-          <span className={`search-form__input-error ${isFormSubmitted && !values.movieTitle && !isValid ? "search-form__input-error_active" : ""}`}>
-            {isFormSubmitted && !values.movieTitle && !isValid ? "Нужно ввести ключевое слово" : ""}
-          </span>
+          {showError && !values.movieTitle && !isValid && (
+            <span className="search-form__input-error search-form__input-error_active">
+              Нужно ввести ключевое слово
+            </span>
+          )}
           <button
             type="submit"
             className="search-form__button"
