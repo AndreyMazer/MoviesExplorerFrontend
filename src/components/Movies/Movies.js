@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
 function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
   const [isSearchText, setIsSearchText] = useState('');
@@ -8,6 +9,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
   const [shortMovies, setShortMovies] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
   const [showNotFound, setShowNotFound] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     restorePreviousSearch();
