@@ -25,25 +25,28 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
     if (!values.movieTitle) {
       return;
     }
-    if (typeof onSearch === 'function') {
-      setIsLoading(true); // Показываем прелоадер
-      const searchResult = onSearch(values.movieTitle);
-      if (searchResult instanceof Promise) {
-        searchResult
-          .then((res) => {
-            setSearchQuery(values.movieTitle);
-            localStorage.setItem('searchQuery', values.movieTitle);
-          })
-          .catch(err => {})
-          .finally(() => {
-            setIsLoading(false); // Скрываем прелоадер после завершения запроса
-          });
+    if (!isLoading) { 
+      setIsLoading(true);
+      if (typeof onSearch === 'function') {
+        const searchResult = onSearch(values.movieTitle);
+        if (searchResult instanceof Promise) {
+          searchResult
+            .then((res) => {
+              setSearchQuery(values.movieTitle);
+              localStorage.setItem('searchQuery', values.movieTitle);
+            })
+            .catch(err => {})
+            .finally(() => {
+              setIsLoading(false); 
+            });
+        } else {
+          setIsLoading(false); 
+        }
       } else {
-        setIsLoading(false); // Скрываем прелоадер если нет Promise
+        setIsLoading(false); 
       }
     }
   }
-
 
   function handleCheckboxChange(evt) {
     handleChangeCheckbox(evt.target.checked);
