@@ -23,12 +23,10 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
   function handleSubmit(evt) {
     evt.preventDefault();
     if (!values.movieTitle) {
-      setIsFormSubmitted(true);
       return;
     }
-    setIsFormSubmitted(false);
-    setIsLoading(true);
     if (typeof onSearch === 'function') {
+      setIsLoading(true); // Показываем прелоадер
       const searchResult = onSearch(values.movieTitle);
       if (searchResult instanceof Promise) {
         searchResult
@@ -38,21 +36,14 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
           })
           .catch(err => {})
           .finally(() => {
-            setTimeout(() => {
-              setIsLoading(false);
-            }, 1000);
+            setIsLoading(false); // Скрываем прелоадер после завершения запроса
           });
       } else {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setIsLoading(false); // Скрываем прелоадер если нет Promise
       }
-    } else {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
     }
   }
+
 
   function handleCheckboxChange(evt) {
     handleChangeCheckbox(evt.target.checked);

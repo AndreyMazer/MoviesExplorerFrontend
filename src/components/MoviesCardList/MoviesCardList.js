@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import Preloader from '../Preloader/Preloader';
 import { DESKTOP_SIZE, MEDIUM_SIZE, MOBILE_SIZE } from '../../utils/constants';
 
-function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
+function MoviesCardList({ movies, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [moviesCount, setMoviesCount] = useState(0);
   const [biggerMoviesCount, setBiggerMoviesCount] = useState(0);
   const [moviesToList, setMoviesToList] = useState([]);
-  const [showPreloader, setShowPreloader] = useState(true);
 
   useEffect(() => {
     checkedCountMovies();
@@ -51,19 +49,10 @@ function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCa
     checkedCountMovies();
   }, [movies, isSavedCard]);
 
-  useEffect(() => {
-    const preloaderTimeout = setTimeout(() => {
-      setShowPreloader(isLoading); 
-    }, 1000);
-
-    return () => clearTimeout(preloaderTimeout);
-  }, [isLoading]);
-
   return (
     <section className="elements">
-      {showPreloader && <Preloader />} 
       <ul className="elements__list">
-        {!isLoading && moviesToList.map((movie) => (
+        {moviesToList.map((movie) => (
           <MoviesCard
             movie={movie}
             key={movie.movieId}
