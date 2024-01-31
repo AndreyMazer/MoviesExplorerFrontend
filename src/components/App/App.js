@@ -217,7 +217,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-      
+      {isLoading && !localStorage.getItem('filteredMovies') && <Preloader />}
         <Routes>
           <Route path="/" element={
             <>
@@ -236,7 +236,6 @@ function App() {
 
           <Route path="/movies" element={
             <>
-        {isLoading && !localStorage.getItem('filteredMovies') && <Preloader />}
               <ProtectedRoute
                 component={Header}
                 loggedIn={loggedIn}
