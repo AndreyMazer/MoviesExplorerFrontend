@@ -33,13 +33,13 @@ function App() {
   const [message, setMessage] = React.useState(false);
   const [succesInfoToolTip, setSuccesInfoToolTip] = React.useState('');
   const [filteredMovies, setFilteredMovies] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
   const cleanErrorMessage = useCallback(() => {
     setErrorMessage("");
   },
     [setErrorMessage],
   );
 
+  
   React.useEffect(() => {
     cleanErrorMessage()
   }, [cleanErrorMessage, navigate]);
@@ -69,13 +69,15 @@ function App() {
   }, [navigate]);
 
   React.useEffect(() => {
-    if (localStorage.getItem('filteredMovies')) {
-      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-      setIsLoading(false);
+    const filteredMovies = localStorage.getItem('filteredMovies');
+    if (filteredMovies) {
+      setFilteredMovies(JSON.parse(filteredMovies));
     } else {
       handleGetMovies();
     }
-  }, []);
+}, []);
+
+
   
   function handleRegister(name, email, password) {
     register(name, email, password)
@@ -149,23 +151,18 @@ function App() {
   }
 
   function handleGetMovies() {
-    setIsLoading(true); 
     moviesApi.getMovies()
-      .then((res) => {
-        const resultMovies = moviesApiArray(res);
-        localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
-        setFilteredMovies(resultMovies);
-      })
-      .catch((err) => {
-        console.log(err);
-        localStorage.removeItem('filteredMovies');
-        setFilteredMovies([]);
-      })
-      .finally(() => {
-        setIsLoading(false); 
-      });
-  }
-
+        .then((res) => {
+            const resultMovies = moviesApiArray(res);
+            localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
+            setFilteredMovies(resultMovies);
+        })
+        .catch((err) => {
+            console.log(err);
+            localStorage.removeItem('filteredMovies');
+            setFilteredMovies([]);
+        });
+}
 
   function handleSaveMovie(data) {
     api.addMovies(data)
@@ -213,7 +210,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {isLoading && <Preloader />}
         <Routes>
           <Route path="/" element={
             <>

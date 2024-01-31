@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import Preloader from '../Preloader/Preloader';
+import moviesApi from '../../utils/MoviesApi';
+import { moviesApiArray } from '../../utils/MoviesApiArray';
 
 function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveCheckbox }) {
   const { values, errors, isValid, handleChange, resetForm } = useFormValidation();
@@ -8,6 +10,19 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
   const [isLoading, setIsLoading] = React.useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showError, setShowError] = useState(false);
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
+
+  React.useEffect(() => {
+    if (isFormSubmitted) {
+      if (localStorage.getItem('filteredMovies')) {
+        setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+        setIsLoading(false);
+      } else {
+        handleGetMovies();
+      }
+    }
+  }, [isFormSubmitted]);
+  
 
   React.useEffect(() => {
     resetForm({ movieTitle: isSearchText })
@@ -18,6 +33,24 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
       resetForm();
     }
   }, [isSearchText, resetForm]);
+
+  function handleGetMovies() {
+    setIsLoading(true); 
+    moviesApi.getMovies()
+      .then((res) => {
+        const resultMovies = moviesApiArray(res);
+        localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
+        setFilteredMovies(resultMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('filteredMovies');
+        setFilteredMovies([]);
+      })
+      .finally(() => {
+        setIsLoading(false); 
+      });
+  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
