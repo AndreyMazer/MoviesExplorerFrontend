@@ -21,6 +21,7 @@ import moviesApi from '../../utils/MoviesApi';
 import { moviesApiArray } from '../../utils/MoviesApiArray';
 import Preloader from '../Preloader/Preloader';
 
+
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -32,8 +33,7 @@ function App() {
   const [message, setMessage] = React.useState(false);
   const [succesInfoToolTip, setSuccesInfoToolTip] = React.useState('');
   const [filteredMovies, setFilteredMovies] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-
+  const [isLoading, setIsLoading] = React.useState(true);
   const cleanErrorMessage = useCallback(() => {
     setErrorMessage("");
   },
@@ -42,7 +42,6 @@ function App() {
 
   React.useEffect(() => {
     cleanErrorMessage()
-
   }, [cleanErrorMessage, navigate]);
 
   React.useEffect(() => {
@@ -70,9 +69,14 @@ function App() {
   }, [navigate]);
 
   React.useEffect(() => {
-    handleGetMovies();
+    if (localStorage.getItem('filteredMovies')) {
+      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+      setIsLoading(false);
+    } else {
+      handleGetMovies();
+    }
   }, []);
-
+  
   function handleRegister(name, email, password) {
     register(name, email, password)
       .then((res) => {
@@ -83,7 +87,6 @@ function App() {
           handleLogin(email, password)
         }
       })
-
       .catch((err) => {
         setMessage(false);
         setInfoTooltipOpen(true);
@@ -108,7 +111,6 @@ function App() {
           navigate('/movies', { replace: true })
         }
       })
-
       .catch((err) => {
         setMessage(false);
         setInfoTooltipOpen(true);
@@ -147,26 +149,21 @@ function App() {
   }
 
   function handleGetMovies() {
-    setIsLoading(true); // Устанавливаем isLoading в true перед запросом к серверу
-    if (localStorage.getItem('filteredMovies')) {
-      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-      setIsLoading(false); // Устанавливаем isLoading в false после получения ответа от сервера
-    } else {
-      moviesApi.getMovies()
-        .then((res) => {
-          const resultMovies = moviesApiArray(res);
-          localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
-          setFilteredMovies(resultMovies);
-        })
-        .catch((err) => {
-          console.log(err);
-          localStorage.removeItem('filteredMovies');
-          setFilteredMovies([]);
-        })
-        .finally(() => {
-          setIsLoading(false); // Устанавливаем isLoading в false после получения ответа от сервера
-        });
-    }
+    setIsLoading(true); 
+    moviesApi.getMovies()
+      .then((res) => {
+        const resultMovies = moviesApiArray(res);
+        localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
+        setFilteredMovies(resultMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('filteredMovies');
+        setFilteredMovies([]);
+      })
+      .finally(() => {
+        setIsLoading(false); 
+      });
   }
 
 
@@ -216,7 +213,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-      {isLoading && <Preloader />}
+        {isLoading && <Preloader />}
         <Routes>
           <Route path="/" element={
             <>
@@ -231,29 +228,26 @@ function App() {
             </>
           } />
           {!loggedIn ? (<Route path="/signup" element={<Register onRegister={handleRegister} errorMessage={errorMessage} />} />) : (<Route path="/signup" element={<Navigate to="/" />} />)}
-          {!loggedIn ? (<Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />) : (<Route path="/signin" element={<Navigate to="/" />} />)}
-
-          <Route path="/movies" element={
-            <>
-              <ProtectedRoute
-                component={Header}
-                loggedIn={loggedIn}
-                openMenu={handleMenuClick}
-                classNames={"header header_films"}
-                classNameAccountLogo={"navigation__accountlogo navigation__accountlogo-too"} />
-              <ProtectedRoute
-                component={Movies}
-                loggedIn={loggedIn}
-                filteredMovies={filteredMovies}
-                onDeleteCard={handleDeleteMovie}
-                onSaveCard={handleSaveMovie}
-                savedMovies={savedMovies}
-              />
-              <ProtectedRoute
-                component={Footer}
-                loggedIn={loggedIn}
-              />
-            </>
+          {!loggedIn ? (<Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />) : (<Route path="/signin" element={<Navigate to="/" />} />)}<Route path="/movies" element={<>
+            <ProtectedRoute
+              component={Header}
+              loggedIn={loggedIn}
+              openMenu={handleMenuClick}
+              classNames={"header header_films"}
+              classNameAccountLogo={"navigation__accountlogo navigation__accountlogo-too"} />
+            <ProtectedRoute
+              component={Movies}
+              loggedIn={loggedIn}
+              filteredMovies={filteredMovies}
+              onDeleteCard={handleDeleteMovie}
+              onSaveCard={handleSaveMovie}
+              savedMovies={savedMovies}
+            />
+            <ProtectedRoute
+              component={Footer}
+              loggedIn={loggedIn}
+            />
+          </>
           } />
           <Route path="/saved-movies" element={
             <>
@@ -294,11 +288,8 @@ function App() {
               />
             </>
           } />
-
           <Route path="*" element={<Error />} />
-
         </Routes>
-
         <Menu isOpen={isMenuOpen} onClose={closePopups} />
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
