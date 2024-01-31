@@ -19,6 +19,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { register, authorize, checkToken } from '../../utils/Authorization';
 import moviesApi from '../../utils/MoviesApi';
 import { moviesApiArray } from '../../utils/MoviesApiArray';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -31,6 +32,7 @@ function App() {
   const [message, setMessage] = React.useState(false);
   const [succesInfoToolTip, setSuccesInfoToolTip] = React.useState('');
   const [filteredMovies, setFilteredMovies] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const cleanErrorMessage = useCallback(() => {
     setErrorMessage("");
@@ -68,6 +70,9 @@ function App() {
   }, [navigate]);
 
   React.useEffect(() => {
+    if (!localStorage.getItem('filteredMovies')) {
+      setIsLoading(true); // Показываем прелоадер перед запросом к серверу
+    }
     handleGetMovies();
   }, []);
 
@@ -158,9 +163,13 @@ function App() {
           console.log(err);
           localStorage.removeItem('filteredMovies');
           setFilteredMovies([]);
+        })
+        .finally(() => {
+          setIsLoading(false); // Скрываем прелоадер после получения данных или в случае ошибки
         });
     }
   }
+  
 
   function handleSaveMovie(data) {
     api.addMovies(data)
@@ -208,6 +217,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+      
         <Routes>
           <Route path="/" element={
             <>
@@ -226,6 +236,7 @@ function App() {
 
           <Route path="/movies" element={
             <>
+        {isLoading && !localStorage.getItem('filteredMovies') && <Preloader />}
               <ProtectedRoute
                 component={Header}
                 loggedIn={loggedIn}

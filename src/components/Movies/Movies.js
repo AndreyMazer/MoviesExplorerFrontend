@@ -35,6 +35,8 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     setIsSearchText(searchText);
   }
 
+  
+
   function onSearch(moviesList, searchMovie) {
     return moviesList.filter((movie) => {
       return (
@@ -76,6 +78,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
 
   return (
     <main className="movies">
+       {isLoading && <Preloader />}
       <SearchForm
         onSearch={handleSubmit}
         handleChangeCheckbox={handleChangeCheckbox}
