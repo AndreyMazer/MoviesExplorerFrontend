@@ -17,6 +17,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
 
   useEffect(() => {
     if (isSearchText || isActiveCheckbox) {
+      setIsLoading(true);
       const searchResult = onSearch(filteredMovies, isSearchText);
       if (isActiveCheckbox) {
         setShortMovies(onSearchShortMovies(searchResult));
@@ -24,6 +25,7 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
       setAllMovies(searchResult);
       setShowNotFound(searchResult.length === 0);
       saveSearchData(isSearchText, isActiveCheckbox, searchResult);
+      setIsLoading(false);
     }
   }, [isSearchText, isActiveCheckbox, filteredMovies]);
 

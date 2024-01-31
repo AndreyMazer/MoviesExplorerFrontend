@@ -70,9 +70,6 @@ function App() {
   }, [navigate]);
 
   React.useEffect(() => {
-    if (!localStorage.getItem('filteredMovies')) {
-      setIsLoading(true); // Показываем прелоадер перед запросом к серверу
-    }
     handleGetMovies();
   }, []);
 
@@ -150,8 +147,10 @@ function App() {
   }
 
   function handleGetMovies() {
+    setIsLoading(true); // Устанавливаем isLoading в true перед запросом к серверу
     if (localStorage.getItem('filteredMovies')) {
       setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+      setIsLoading(false); // Устанавливаем isLoading в false после получения ответа от сервера
     } else {
       moviesApi.getMovies()
         .then((res) => {
@@ -165,11 +164,11 @@ function App() {
           setFilteredMovies([]);
         })
         .finally(() => {
-          setIsLoading(false); // Скрываем прелоадер после получения данных или в случае ошибки
+          setIsLoading(false); // Устанавливаем isLoading в false после получения ответа от сервера
         });
     }
   }
-  
+
 
   function handleSaveMovie(data) {
     api.addMovies(data)
@@ -217,7 +216,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-      {isLoading && !localStorage.getItem('filteredMovies') && <Preloader />}
+      {isLoading && <Preloader />}
         <Routes>
           <Route path="/" element={
             <>
