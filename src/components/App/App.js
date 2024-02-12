@@ -67,17 +67,6 @@ function App() {
         .catch((err) => console.log(err))
     }
   }, [navigate]);
-
-  React.useEffect(() => {
-    const filteredMovies = localStorage.getItem('filteredMovies');
-    if (filteredMovies) {
-      setFilteredMovies(JSON.parse(filteredMovies));
-    } else {
-      handleGetMovies();
-    }
-}, []);
-
-
   
   function handleRegister(name, email, password) {
     register(name, email, password)
@@ -149,20 +138,6 @@ function App() {
         }
       });
   }
-
-  function handleGetMovies() {
-    moviesApi.getMovies()
-        .then((res) => {
-            const resultMovies = moviesApiArray(res);
-            localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
-            setFilteredMovies(resultMovies);
-        })
-        .catch((err) => {
-            console.log(err);
-            localStorage.removeItem('filteredMovies');
-            setFilteredMovies([]);
-        });
-}
 
   function handleSaveMovie(data) {
     api.addMovies(data)

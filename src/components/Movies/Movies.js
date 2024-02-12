@@ -2,22 +2,27 @@ import React, { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import { moviesApiArray } from '../../utils/MoviesApiArray';
+import moviesApi from '../../utils/MoviesApi';
 
-function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
+function Movies({ onDeleteCard, onSaveCard, savedMovies }) {
   const [isSearchText, setIsSearchText] = useState('');
   const [isActiveCheckbox, setIsActiveCheckbox] = useState(false);
   const [shortMovies, setShortMovies] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
   const [showNotFound, setShowNotFound] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem('filteredMovies')) {
+      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    }
     restorePreviousSearch();
   }, []);
 
   useEffect(() => {
-    if (isSearchText || isActiveCheckbox) {
-      setIsLoading(true);
+    if (!isLoading && isSearchText || isActiveCheckbox) {
       const searchResult = onSearch(filteredMovies, isSearchText);
       if (isActiveCheckbox) {
         setShortMovies(onSearchShortMovies(searchResult));
@@ -25,9 +30,8 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
       setAllMovies(searchResult);
       setShowNotFound(searchResult.length === 0);
       saveSearchData(isSearchText, isActiveCheckbox, searchResult);
-      setIsLoading(false);
     }
-  }, [isSearchText, isActiveCheckbox, filteredMovies]);
+  }, [isSearchText, isActiveCheckbox, filteredMovies, isLoading]);
 
   function handleChangeCheckbox() {
     setIsActiveCheckbox(!isActiveCheckbox);
@@ -35,9 +39,11 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
 
   function handleSubmit(searchText) {
     setIsSearchText(searchText);
+    if (!localStorage.getItem('filteredMovies')) {
+      setIsLoading(true);
+      handleGetMovies();
+    }
   }
-
-  
 
   function onSearch(moviesList, searchMovie) {
     return moviesList.filter((movie) => {
@@ -70,6 +76,15 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         setShortMovies(onSearchShortMovies(JSON.parse(previousMovies)));
       }
     }
+    if (previousText && previousCheckbox && previousMovies) {
+      const searchResult = onSearch(JSON.parse(previousMovies), previousText);
+      let resultMovies = searchResult;
+      if (JSON.parse(previousCheckbox)) {
+        resultMovies = onSearchShortMovies(searchResult);
+      }
+      setAllMovies(resultMovies);
+      setShowNotFound(resultMovies.length === 0);
+    }
   }
 
   function saveSearchData(text, checkbox, movies) {
@@ -78,9 +93,27 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     localStorage.setItem('previousMovies', JSON.stringify(movies));
   }
 
+  function handleGetMovies() {
+    setIsLoading(true); 
+    moviesApi.getMovies()
+      .then((res) => {
+        const resultMovies = moviesApiArray(res);
+        localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
+        setFilteredMovies(resultMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('filteredMovies');
+        setFilteredMovies([]);
+      })
+      .finally(() => {
+        setIsLoading(false); 
+      });
+  }
+
   return (
     <main className="movies">
-       {isLoading && <Preloader />}
+      {isLoading && <Preloader />}
       <SearchForm
         onSearch={handleSubmit}
         handleChangeCheckbox={handleChangeCheckbox}
